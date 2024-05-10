@@ -5,11 +5,11 @@ require("dotenv").config();
 const connection = require("../configs/database_connection"); // Importando a instância do banco de dados
 
 // Importando ações de email:
-const { 
+const {
   sendPasswordResetEmail,
   sendPasswordResetConfirmationEmail,
-  generateResetToken 
-} = require("../utils/email_functions")
+  generateResetToken,
+} = require("../utils/email_functions");
 
 // Conectando ao banco de dados:
 connection.connect((error) => {
@@ -173,89 +173,98 @@ const loginControll = async (req, res) => {
 
 // Função de criação de token de recuperação
 const forgotPasswordControll = async (req, res) => {
-  const {email} = req.body;
+  const { email } = req.body;
 
-  if(!email) {
+  if (!email) {
     res.status(403).json({
-      error: `Se deseja recuperar a senha, informe um email`
+      error: `Se deseja recuperar a senha, informe um email`,
     });
     return;
   }
 
   try {
     const existingEmail = await new Promise((resolve, reject) => {
-      connection.execute('SELECT * FROM users WHERE email = ?', [email], (error, results) => {
-        if (error) {
-          reject (error);
-          return;
-        };
-        resolve(results);
-      });
+      connection.execute(
+        "SELECT * FROM users WHERE email = ?",
+        [email],
+        (error, results) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+          resolve(results);
+        }
+      );
     });
 
     if (existingEmail.length === 0) {
       res.status(403).json({
-        error: `O email: ${email} que você deseja recuperar a conta não está associado a nenhuma conta. Se desejar, registre-se no SocialApp`
+        error: `O email: ${email} que você deseja recuperar a conta não está associado a nenhuma conta. Se desejar, registre-se no SocialApp`,
       });
       return;
-
     } else {
       const resetToken = generateResetToken();
       const userID = existingEmail[0].id;
 
       const setResetToken = await new Promise((resolve, reject) => {
-        connection.execute('UPDATE users SET reset_token = ? WHERE id = ?', [resetToken, userID], (error, results) => {
-          if (error) {
-            reject(error);
-            return;
-          };
-          resolve(results);
-        });
+        connection.execute(
+          "UPDATE users SET reset_token = ? WHERE id = ?",
+          [resetToken, userID],
+          (error, results) => {
+            if (error) {
+              reject(error);
+              return;
+            }
+            resolve(results);
+          }
+        );
       });
       res.status(200).json({
-        resultado: `Foi enviado um email de recuperação de senha para o endereço: ${email}`
-      })
+        resultado: `Foi enviado um email de recuperação de senha para o endereço: ${email}`,
+      });
       sendPasswordResetEmail(email, resetToken);
     }
-
-  } catch(error) {
+  } catch (error) {
     console.log(error);
     res.status(500).json({
-      error: `No momento, não foi possível estabeler uma conexão com o banco de dados`
+      error: `No momento, não foi possível estabeler uma conexão com o banco de dados`,
     });
     return;
   }
-}
+};
 
 // Rota para exibir o formulário de alteração de senha com base no token de redefinição de senha
 const resetPasswordGET = async (req, res) => {
-  const {token} = req.params;
+  const { token } = req.params;
 
   try {
     const exisitngResetToken = await new Promise((resolve, reject) => {
-      connection.execute("SELECT * FROM users WHERE reset_token = ?", [token], (error, results) => {
-        if (error) {
-          reject(error);
-          return;
-        };
-        resolve(results);
-      });
+      connection.execute(
+        "SELECT * FROM users WHERE reset_token = ?",
+        [token],
+        (error, results) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+          resolve(results);
+        }
+      );
     });
     if (exisitngResetToken.length === 0) {
       res.status(403).json({
-        error: `Houve um engano. Não há nenhuma senha para ser recuperada com esse token. Se deseja recupera sua conta, tente novamente em Recuperar Senha...`
+        error: `Houve um engano. Não há nenhuma senha para ser recuperada com esse token. Se deseja recupera sua conta, tente novamente em Recuperar Senha...`,
       });
       return;
     } else {
       res.status(200).json({
-        token
+        token,
       });
-    };
-
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      error: `No momento, não foi possível estabeler uma conexão com o banco de dados`
+      error: `No momento, não foi possível estabeler uma conexão com o banco de dados`,
     });
     return;
   }
@@ -267,83 +276,93 @@ const resetPasswordPOST = async (req, res) => {
   const { password, confirmPassword } = req.body;
 
   try {
-      if (!password || !confirmPassword) {
-        res.status(403).json({
-          error: `Se deseja recuperar sua senha, informe os dados necessários`
-        })
-      }
+    if (!password || !confirmPassword) {
+      res.status(403).json({
+        error: `Se deseja recuperar sua senha, informe os dados necessários`,
+      });
+    }
 
-      if (password !== confirmPassword) {
-        res.status(400).json({
-          error: `As senhas não coicidem. Por favor, tente novamente.`,
-        });
-        return;
-      }
+    if (password !== confirmPassword) {
+      res.status(400).json({
+        error: `As senhas não coicidem. Por favor, tente novamente.`,
+      });
+      return;
+    }
 
-      const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*()])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-      if (!passwordRegex.test(password)) {
-        res.status(400).json({
-          error: `A senha deve conter pelo menos 8 caracteres, incluindo pelo menos um número, uma letra maiúscula, uma letra minúscula e um caractere especial.`,
-        });
-        return;
-      }
+    const passwordRegex =
+      /^(?=.*\d)(?=.*[!@#$%^&*()])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      res.status(400).json({
+        error: `A senha deve conter pelo menos 8 caracteres, incluindo pelo menos um número, uma letra maiúscula, uma letra minúscula e um caractere especial.`,
+      });
+      return;
+    }
 
-      const exisitngResetToken = await new Promise((resolve, reject) => {
-        connection.execute("SELECT * FROM users WHERE reset_token = ?", [token], (error, results) => {
+    const exisitngResetToken = await new Promise((resolve, reject) => {
+      connection.execute(
+        "SELECT * FROM users WHERE reset_token = ?",
+        [token],
+        (error, results) => {
           if (error) {
             reject(error);
             return;
-          };
+          }
           resolve(results);
-        })
-      })
+        }
+      );
+    });
 
-      if (exisitngResetToken.length === 0) {
-        res.status(403).json({
-          error: `Não há recuperação de senha para está conta.`
-        });
-        return;
-      } else {
-        const userID = exisitngResetToken[0].id;
-        const userEmail = exisitngResetToken[0].email;
+    if (exisitngResetToken.length === 0) {
+      res.status(403).json({
+        error: `Não há recuperação de senha para está conta.`,
+      });
+      return;
+    } else {
+      const userID = exisitngResetToken[0].id;
+      const userEmail = exisitngResetToken[0].email;
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+      const hashedPassword = await bcrypt.hash(password, 10);
 
-        const updatePassword = await new Promise((resolve,  reject) => {
-          connection.execute('UPDATE users SET password = ?, reset_token = NULL WHERE id = ?', [hashedPassword, userID], (error, results) => {
+      const updatePassword = await new Promise((resolve, reject) => {
+        connection.execute(
+          "UPDATE users SET password = ?, reset_token = NULL WHERE id = ?",
+          [hashedPassword, userID],
+          (error, results) => {
             if (error) {
-              reject (error);
+              reject(error);
               return;
-            };
+            }
             resolve(results);
-          });
-        })
-        sendPasswordResetConfirmationEmail(userEmail);
+          }
+        );
+      });
+      sendPasswordResetConfirmationEmail(userEmail);
 
-        res.status(200).json({
-          resultado: `Sua senha foi alterada com sucesso!`
-        })
-      }
+      res.status(200).json({
+        resultado: `Sua senha foi alterada com sucesso!`,
+      });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      error: `No momento, não foi possível estabeler uma conexão com o banco de dados`
+      error: `No momento, não foi possível estabeler uma conexão com o banco de dados`,
     });
     return;
   }
 };
 
+// Controle de acesso de rotas:
 const verifyToken = (req, res) => {
   const token = req.body.token;
   if (!token) {
-    return res.status(401).json({ message: 'Token não fornecido.' });
+    return res.status(401).json({ message: "Token não fornecido." });
   }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    res.status(200).json({ message: 'Token válido.' });
+    res.status(200).json({ message: "Token válido." });
   } catch (error) {
-    res.status(401).json({ message: 'Token inválido ou expirado.' });
+    res.status(401).json({ message: "Token inválido ou expirado." });
   }
 };
 
@@ -351,11 +370,11 @@ module.exports = {
   verifyToken,
 };
 
-module.exports = { 
-  registerControll, 
-  loginControll, 
-  forgotPasswordControll, 
-  resetPasswordGET, 
+module.exports = {
+  registerControll,
+  loginControll,
+  forgotPasswordControll,
+  resetPasswordGET,
   resetPasswordPOST,
-  verifyToken
+  verifyToken,
 };
