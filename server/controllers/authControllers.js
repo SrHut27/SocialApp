@@ -9,7 +9,7 @@ const {
   sendPasswordResetEmail,
   sendPasswordResetConfirmationEmail,
   generateResetToken 
-} = require("../service/email_functions")
+} = require("../utils/email_functions")
 
 // Conectando ao banco de dados:
 connection.connect((error) => {
