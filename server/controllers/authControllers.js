@@ -333,10 +333,29 @@ const resetPasswordPOST = async (req, res) => {
   }
 };
 
+const verifyToken = (req, res) => {
+  const token = req.body.token;
+  if (!token) {
+    return res.status(401).json({ message: 'Token não fornecido.' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    res.status(200).json({ message: 'Token válido.' });
+  } catch (error) {
+    res.status(401).json({ message: 'Token inválido ou expirado.' });
+  }
+};
+
+module.exports = {
+  verifyToken,
+};
+
 module.exports = { 
   registerControll, 
   loginControll, 
   forgotPasswordControll, 
   resetPasswordGET, 
-  resetPasswordPOST 
+  resetPasswordPOST,
+  verifyToken
 };
