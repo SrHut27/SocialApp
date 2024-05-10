@@ -1,0 +1,28 @@
+{
+  "name": "api_social_app",
+  "version": "1.0.0",
+  "description": "An web social app",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SrHut27/SocialApp.git"
+  },
+  "author": "SrHut27",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SrHut27/SocialApp/issues"
+  },
+  "homepage": "https://github.com/SrHut27/SocialApp#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mysql2": "^3.9.7"
+  }
+}
