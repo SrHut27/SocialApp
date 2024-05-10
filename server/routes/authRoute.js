@@ -7,7 +7,8 @@ const {
   loginControll,
   forgotPasswordControll,
   resetPasswordGET,
-  resetPasswordPOST
+  resetPasswordPOST,
+  verifyToken 
 } = require("../controllers/authControllers");
 
 router.post("/register", (req, res) => {
@@ -24,10 +25,15 @@ router.post("/forgot-password", (req, res) => {
 
 router.get("/reset-password/:token", (req, res) => {
   resetPasswordGET(req, res);
-})
+});
 
 router.post("/reset-password/:token", (req, res) => {
   resetPasswordPOST(req, res);
-})
+});
+
+router.post("/verify-token", (req, res) => {
+  verifyToken(req, res);
+});
+
 
 module.exports = router;
