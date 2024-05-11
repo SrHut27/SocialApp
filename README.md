@@ -16,3 +16,10 @@ O projeto **SocialAapp** foi inspirado em redes sociais como Facebook, Instagram
 + **nodemon**: O nodemon é uma ferramenta que ajuda no desenvolvimento, reiniciando automaticamente o servidor Node.js sempre que detecta alterações nos arquivos do projeto. Isso elimina a necessidade de reiniciar manualmente o servidor a cada modificação feita no código, tornando o processo de desenvolvimento mais eficiente e produtivo.
 + **Nodemailer**: O Nodemailer é uma biblioteca Node.js para envio de emails. Com o Nodemailer, é possível enviar emails diretamente de aplicativos Node.js de forma fácil e eficiente. Ele suporta vários serviços de email, como SMTP, SendGrid, Mailgun, entre outros, permitindo que você escolha o provedor de email que melhor se adapte às suas necessidades.O Nodemailer oferece uma ampla gama de recursos,
 
+#### Módulos usados no projeto (para a Aplicação) :
+
+#### Ideias no decorrer do projeto:
+  -> Fazer um Web Chat: mesmo que não seja com as mensagens salvas no banco de dados, perdendo-as sempre que um novo chat seja aberto, é uma ótima forma de entender o protocolo WebSocket. Apesar das mensagens não fiicarem salvas, queremos que sejam indentificadas (mostre seu autor) e sejam chats privados (uma sala com apenas dois usuários). Usaremos a biblioteca socket.io
+
+  
+
