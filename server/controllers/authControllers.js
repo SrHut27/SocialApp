@@ -159,7 +159,7 @@ const loginControll = async (req, res) => {
         const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
           expiresIn: expiresIn,
         });
-        res.status(200).json({ token, expiresIn });
+        res.status(200).json({ token, expiresIn, user });
       }
     }
   } catch (error) {
@@ -352,7 +352,7 @@ const resetPasswordPOST = async (req, res) => {
 };
 
 // Controle de acesso de rotas:
-const verifyToken = (req, res) => {
+const verifyToken = (req, res, next) => {
   const token = req.body.token;
   if (!token) {
     return res.status(401).json({ message: "Token não fornecido." });
@@ -360,14 +360,11 @@ const verifyToken = (req, res) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    res.status(200).json({ message: "Token válido." });
+    req.decoded = decoded;
+    next();
   } catch (error) {
     res.status(401).json({ message: "Token inválido ou expirado." });
   }
-};
-
-module.exports = {
-  verifyToken,
 };
 
 module.exports = {
