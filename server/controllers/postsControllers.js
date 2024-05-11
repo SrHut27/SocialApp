@@ -1,5 +1,37 @@
 const connection = require("../configs/database_connection");
 
+// Rota para mostrar as publicações
+const getPosts = async (req, res) => {
+  try {
+    const getingPosts = await new Promise((resolve, reject) => {
+      connection.execute("SELECT * FROM posts", (error, results) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        resolve(results);
+      });
+    });
+    if (getingPosts.length === 0) {
+      res.status(404).json({
+        error: `Não há nenhum post ainda...`,
+      });
+      return;
+    } else {
+      res.status(200).json({
+        resultado: getingPosts,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: `No momento, não foi possível estabeler uma conexão com o banco de dados`,
+    });
+    return;
+  }
+};
+
+// Rota para adicionar publicação
 const addPosts = async (req, res) => {
   const { userID, title, content } = req.body;
 
@@ -57,7 +89,66 @@ const addPosts = async (req, res) => {
         resultado: `Publicação realizada com sucesso!`,
       });
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: `No momento, não foi possível estabeler uma conexão com o banco de dados`,
+    });
+    return;
+  }
 };
 
-module.exports = { addPosts };
+// Rota para apagar publicação
+const deletePost = async (req, res) => {
+  const { postID } = req.params;
+
+  try {
+    const existingPost = await new Promise((resolve, reject) => {
+      connection.execute(
+        "SELECT * FROM posts WHERE id = ?",
+        [postID],
+        (error, results) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+          resolve(results);
+        }
+      );
+    });
+
+    if (existingPost.length === 0) {
+      res.status(405).json({
+        error: `Houve um erro ao apagar a publicação, ela não foi encontrada`,
+      });
+      return;
+    } else {
+      const post = existingPost[0];
+
+      const deletingPost = await new Promise((resolve, reject) => {
+        connection.execute(
+          "DELETE FROM posts WHERE id = ?",
+          [postID],
+          (error, results) => {
+            if (error) {
+              reject(error);
+              return;
+            }
+            resolve(results);
+          }
+        );
+      });
+      res.status(200).json({
+        resultado: `A publicação -${post.title}- foi apagada com sucesso`,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: `No momento, não foi possível estabeler uma conexão com o banco de dados`,
+    });
+    return;
+  }
+};
+
+module.exports = { addPosts, getPosts, deletePost };
