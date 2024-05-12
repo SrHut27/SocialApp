@@ -34,6 +34,7 @@ const getPosts = async (req, res) => {
 // Rota para adicionar publicação
 const addPosts = async (req, res) => {
   const { userID, title, content } = req.body;
+  let filePath = null;
 
   if (!userID) {
     res.status(402).json({
@@ -47,6 +48,12 @@ const addPosts = async (req, res) => {
       error: `Se deseja cadastrar uma publicação, informe um título a ela`,
     });
     return;
+  }
+
+  if (!req.file) {
+    filePath = null;
+  } else {
+    filePath = req.file.path;
   }
 
   try {
@@ -73,14 +80,14 @@ const addPosts = async (req, res) => {
     } else {
       const addPost = await new Promise((resolve, reject) => {
         connection.execute(
-          "INSERT INTO posts (user_id, title, content) VALUES (?,?,?)",
-          [userID, title, content],
+          "INSERT INTO posts (user_id, title, content, filePath) VALUES (?,?,?,?)",
+          [userID, title, content || null, filePath],
           (error, results) => {
             if (error) {
               reject(error);
               return;
             }
-            resolve(error);
+            resolve(results);
           }
         );
       });
