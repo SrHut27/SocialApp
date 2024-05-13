@@ -53,7 +53,7 @@ const addPosts = async (req, res) => {
   if (!req.file) {
     filePath = null;
   } else {
-    filePath = req.file.path;
+    filePath = "/posts/" + req.file.filename;
   }
 
   try {
