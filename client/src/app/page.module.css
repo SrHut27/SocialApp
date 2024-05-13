@@ -1,15 +1,17 @@
 .main {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
+  gap: 12rem;
   width: 100%;
   height: 100%;
 }
 
-
-
 .facebookinfo {
   width: 500px;
+  padding-bottom: 25rem;
+
 }
 
 .facebookinfo h1 {

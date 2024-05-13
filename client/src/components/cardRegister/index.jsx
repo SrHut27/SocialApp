@@ -1,22 +1,23 @@
-
 "use client"
 import Link from "next/link"
 import styles from "./card.module.css"
 import React, { useState } from 'react';
 
 
-const Card = () => {
+const RegisterForm = () => {
     const [formData, setFormData] = useState({
+        username: '',
         email: '',
         password: '',
-    })
+        confirmPassword: '',
+    });
 
-    const authenticateUser = async (e) => {
-        e.preventDefault()
-        console.log(formData)
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log(formData);
 
         try {
-            const response = await fetch('http://localhost:3001/auth/login', {
+            const response = await fetch('http://localhost:3001/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -25,24 +26,31 @@ const Card = () => {
             });
             const data = await response.json()
             if (response.ok) {
-                window.location.href = '/dashboard'
+                console.log('Cadastro realizado com sucesso')
             } else {
                 throw new Error(data.error)
             }
         } catch (error) {
-            console.error(error)
+            console.error('Erro ao realizar requisição:', error)
         }
     }
 
-
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     }
+
 
     return (
         <div>
             <div className={styles.facebookcaixa}>
-                <form className={styles.inputsdiv} onSubmit={authenticateUser}>
+                <form className={styles.inputsdiv} onSubmit={handleSubmit}>
+                    <input
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                    placeholder="Username"
+                    />
                     <input
                     type="email"
                     name="email"
@@ -57,6 +65,13 @@ const Card = () => {
                     onChange={handleChange}
                     placeholder="Senha"
                     />
+                    <input
+                    type="password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    placeholder="Confirmar Senha"
+                    />
                     <button className={styles.buttonEntrar} type="submit">Entrar</button>
                     <Link href={'/senha'} className={styles.linkSenha}>Esqueceu a senha ?</Link>
                     <hr></hr>
@@ -67,4 +82,4 @@ const Card = () => {
         </div>
     )
 }
-export default Card;
+export default RegisterForm;

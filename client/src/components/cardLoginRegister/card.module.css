@@ -67,3 +67,7 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.linkSenha:hover {
+    text-decoration: underline;
+}
