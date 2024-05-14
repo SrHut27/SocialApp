@@ -35,6 +35,7 @@ const getPosts = async (req, res) => {
 const addPosts = async (req, res) => {
   const { userID, title, content } = req.body;
   let filePath = null;
+  let fileExtension = null;
 
   if (!userID) {
     res.status(402).json({
@@ -54,6 +55,7 @@ const addPosts = async (req, res) => {
     filePath = null;
   } else {
     filePath = "/posts/" + req.file.filename;
+    fileExtension = req.file.filename.split(".").pop();
   }
 
   try {
@@ -80,8 +82,8 @@ const addPosts = async (req, res) => {
     } else {
       const addPost = await new Promise((resolve, reject) => {
         connection.execute(
-          "INSERT INTO posts (user_id, title, content, filePath) VALUES (?,?,?,?)",
-          [userID, title, content || null, filePath],
+          "INSERT INTO posts (user_id, title, content, filePath, fileExtension) VALUES (?,?,?,?,?)",
+          [userID, title, content || null, filePath, fileExtension],
           (error, results) => {
             if (error) {
               reject(error);
