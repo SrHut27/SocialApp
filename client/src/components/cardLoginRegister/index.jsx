@@ -1,4 +1,3 @@
-
 "use client"
 import Link from "next/link"
 import styles from "./card.module.css"
@@ -27,6 +26,7 @@ const Card = () => {
             });
             const data = await response.json()
             if (response.ok) {
+                localStorage.setItem('token', data.token)
                 window.location.href = '/dashboard'
             } else {
                 throw new Error(data.error)

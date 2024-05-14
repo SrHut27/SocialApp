@@ -100,7 +100,7 @@ const registerControll = async (req, res) => {
           );
         });
         res.status(201).json({
-          resultado: `Olá ${username}! Seja bem vindo ao nosso site :). Clique em logar agora para acessar nosso site!`,
+          resultado: `Olá ${username}! Seu cadastro foi realizado com sucesso! Você será redirecionado para a tela de login em breve.`,
         });
       }
     }

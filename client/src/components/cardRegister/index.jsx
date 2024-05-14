@@ -12,11 +12,11 @@ const RegisterForm = () => {
         confirmPassword: '',
     });
 
-    const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('')
+    const [resultadoMessage, setResultadoMessage] = useState('')
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
 
         try {
             const response = await fetch('http://localhost:3001/auth/register', {
@@ -28,7 +28,11 @@ const RegisterForm = () => {
             });
             const data = await response.json()
             if (response.ok) {
-                console.log('Cadastro realizado com sucesso')
+                setErrorMessage('');
+                setResultadoMessage(data.resultado)
+                setTimeout(() => {
+                    window.location.href = '/'
+                }, 4000);
             } else {
                 throw new Error(data.error)
             }
@@ -50,7 +54,8 @@ const RegisterForm = () => {
                 <div className={styles.facebookCaixaSupremaCadastro}>
                     
                     <form className={styles.criarConta} onSubmit={handleSubmit}>
-                    {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+                    {resultadoMessage && <p style={{ color: 'green', textAlign: "center" }}>{resultadoMessage}</p>}
+                    {errorMessage && <p style={{ color: 'red', textAlign: "center"  }}>{errorMessage}</p>}
                         <h1>Cadastre sua conta</h1>
                         <input
                             type="text"
