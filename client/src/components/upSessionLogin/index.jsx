@@ -26,6 +26,7 @@ const UpSessionLogin = () => {
             });
             const data = await response.json()
             if (response.ok) {
+                localStorage.setItem('token', data.token)
                 window.location.href = '/dashboard'
             } else {
                 throw new Error(data.error);
@@ -44,7 +45,7 @@ const UpSessionLogin = () => {
         <header>
             <div className={styles.cabecalho}>
                 <div>
-                    <Link href="/" className={styles.linkSocial}>SocialMedia</Link>
+                    <Link href="/" className={styles.linkSocial}>SocialApp</Link>
                 </div>
                 <form className={styles.inputs} onSubmit={authenticateUser}>
                     <input
