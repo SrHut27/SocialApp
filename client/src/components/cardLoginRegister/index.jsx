@@ -11,6 +11,8 @@ const Card = () => {
         password: '',
     })
 
+    const [errorMessage, setErrorMessage] = useState('');
+
     const authenticateUser = async (e) => {
         e.preventDefault()
         console.log(formData)
@@ -31,6 +33,7 @@ const Card = () => {
             }
         } catch (error) {
             console.error(error)
+            setErrorMessage(error.message);
         }
     }
 
@@ -42,7 +45,9 @@ const Card = () => {
     return (
         <div>
             <div className={styles.facebookcaixa}>
+            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 <form className={styles.inputsdiv} onSubmit={authenticateUser}>
+                
                     <input
                     type="email"
                     name="email"

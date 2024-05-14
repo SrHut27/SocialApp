@@ -38,7 +38,7 @@ const registerControll = async (req, res) => {
 
   if (password != confirmPassword) {
     res.status(400).json({
-      error: `As senhas não coicidem. Por favor, tente novamente.`,
+      error: `As senhas não coincidem. Por favor, tente novamente.`,
     });
     return;
   }
@@ -60,7 +60,7 @@ const registerControll = async (req, res) => {
 
     if (existingUsername.length > 0) {
       res.status(403).json({
-        error: `O username: ${username} já foi cadastrado abteriormente e não pode ser cadastrado novamente`,
+        error: `O username: ${username} já foi cadastrado e não pode ser cadastrado novamente`,
       });
       return;
     } else {
@@ -106,7 +106,7 @@ const registerControll = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({
-      error: `Não foi possível conectar ao banco de dados no momento`,
+      error: `Não foi possível conectar ao banco de dados`,
     });
     console.log(error);
     return;
@@ -119,7 +119,7 @@ const loginControll = async (req, res) => {
 
   if (!email || !password) {
     res.status(401).json({
-      error: `Se deseja logar, informe todas os dados de login necessários`,
+      error: `Se deseja logar, informe todos os dados de login necessários`,
     });
     return;
   }
@@ -227,7 +227,7 @@ const forgotPasswordControll = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      error: `No momento, não foi possível estabeler uma conexão com o banco de dados`,
+      error: `No momento, não é possível estabeler uma conexão com o banco de dados`,
     });
     return;
   }
@@ -253,7 +253,7 @@ const resetPasswordGET = async (req, res) => {
     });
     if (exisitngResetToken.length === 0) {
       res.status(403).json({
-        error: `Houve um engano. Não há nenhuma senha para ser recuperada com esse token. Se deseja recupera sua conta, tente novamente em Recuperar Senha...`,
+        error: `Houve um engano. Não há nenhuma senha para ser recuperada com esse token. Se deseja recuperar sua conta, tente novamente em Recuperar Senha...`,
       });
       return;
     } else {
@@ -264,7 +264,7 @@ const resetPasswordGET = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      error: `No momento, não foi possível estabeler uma conexão com o banco de dados`,
+      error: `No momento, não foi possível estabelecer uma conexão com o banco de dados`,
     });
     return;
   }
@@ -278,13 +278,13 @@ const resetPasswordPOST = async (req, res) => {
   try {
     if (!password || !confirmPassword) {
       res.status(403).json({
-        error: `Se deseja recuperar sua senha, informe os dados necessários`,
+        error: `Se deseja recuperar sua senha, informe todos os dados necessários`,
       });
     }
 
     if (password !== confirmPassword) {
       res.status(400).json({
-        error: `As senhas não coicidem. Por favor, tente novamente.`,
+        error: `As senhas não coincidem. Por favor, tente novamente.`,
       });
       return;
     }
@@ -314,7 +314,7 @@ const resetPasswordPOST = async (req, res) => {
 
     if (exisitngResetToken.length === 0) {
       res.status(403).json({
-        error: `Não há recuperação de senha para está conta.`,
+        error: `Não há recuperação de senha para esta conta.`,
       });
       return;
     } else {

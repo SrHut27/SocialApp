@@ -1,6 +1,8 @@
-// `app/dashboard/page.js` is the UI for the `/dashboard` URL
+import RegisterForm from '@/components/cardRegister'
+
+
 export default function Page() {
     return (
-      <h1>Nada por enquanto</h1>
+      <RegisterForm></RegisterForm>
     )
   }

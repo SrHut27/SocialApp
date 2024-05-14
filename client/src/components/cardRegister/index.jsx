@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import styles from "./card.module.css"
+import styles from "./register.module.css"
 import React, { useState } from 'react';
 
 
@@ -11,6 +11,8 @@ const RegisterForm = () => {
         password: '',
         confirmPassword: '',
     });
+
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -32,6 +34,7 @@ const RegisterForm = () => {
             }
         } catch (error) {
             console.error('Erro ao realizar requisição:', error)
+            setErrorMessage(error.message)
         }
     }
 
@@ -41,43 +44,50 @@ const RegisterForm = () => {
 
 
     return (
-        <div>
-            <div className={styles.facebookcaixa}>
-                <form className={styles.inputsdiv} onSubmit={handleSubmit}>
-                    <input
-                    type="text"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleChange}
-                    placeholder="Username"
-                    />
-                    <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Email"
-                    />
-                    <input 
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    placeholder="Senha"
-                    />
-                    <input
-                    type="password"
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    placeholder="Confirmar Senha"
-                    />
-                    <button className={styles.buttonEntrar} type="submit">Entrar</button>
-                    <Link href={'/senha'} className={styles.linkSenha}>Esqueceu a senha ?</Link>
-                    <hr></hr>
-                    <Link href={'/cadastro'} className={styles.buttonCriar}>Criar nova conta</Link>
-                </form>
-                <p><strong>Crie uma Página</strong> para uma celebridade, uma marca ou uma empresa.</p>
+        <div className={styles.contentCadastro}>
+            <div className={styles.facebookCaixaCadastro}>
+                
+                <div className={styles.facebookCaixaSupremaCadastro}>
+                    
+                    <form className={styles.criarConta} onSubmit={handleSubmit}>
+                    {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+                        <h1>Cadastre sua conta</h1>
+                        <input
+                            type="text"
+                            name="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            placeholder="Username"
+                        />
+                        <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="Email"
+                        />
+                        <input
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            placeholder="Senha"
+                        />
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            placeholder="Confirmar Senha" />
+                        <button className={styles.buttonRegister} type="submit">Cadastre-se</button>
+                    </form>
+
+                    <div className={styles.bemVindo}>
+                        <h1>Seja bem vindo</h1>
+                        <h2>Para se manter conectado conosco, entre com suas informações pessoais</h2>
+                        <Link href="/" className={styles.buttonLogin}>Entre</Link>
+                    </div>
+                </div>
             </div>
         </div>
     )
