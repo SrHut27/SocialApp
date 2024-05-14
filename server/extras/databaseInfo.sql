@@ -15,5 +15,6 @@ CREATE TABLE posts (
     tittle VARCHAR(255) NOT NULL,
     content text,
     filePath VARCHAR(255) UNIQUE,
+    fileExtension VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
