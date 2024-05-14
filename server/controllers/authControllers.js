@@ -155,11 +155,15 @@ const loginControll = async (req, res) => {
         });
         return;
       } else {
+        const userWithoutPassword = existingUser.map((user) => {
+          const { password, ...userWithoutPassword } = user;
+          return userWithoutPassword;
+        });
         const expiresIn = "1m";
         const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
           expiresIn: expiresIn,
         });
-        res.status(200).json({ token, expiresIn, user });
+        res.status(200).json({ token, expiresIn, userWithoutPassword });
       }
     }
   } catch (error) {

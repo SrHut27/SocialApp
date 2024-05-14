@@ -38,7 +38,7 @@ const addPosts = async (req, res) => {
   let fileExtension = null;
 
   if (!userID) {
-    res.status(402).json({
+    res.status(500).json({
       error: `Não há nenhum usuário logado no momento...`,
     });
     return;
