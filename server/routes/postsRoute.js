@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { verifyToken } = require("../controllers/authControllers");
 
-const upload = require("../configs/multer_uploader");
+const { upload } = require("../configs/multer_uploader");
 
 // Importação dos controllers
 const {
