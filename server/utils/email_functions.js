@@ -12,8 +12,8 @@ function sendPasswordResetEmail(email, resetToken) {
             <div style="font-family: Arial, sans-serif; font-size: 16px; color: #333;">
                 <p>Olá,</p>
                 <p>Esqueceu sua senha no SocialApp, com o email: ${email}?</p>
-                <p>Para redefinir sua senha, clique no botão abaixo:</p>
-                <a href="http://localhost:3000/senha/${resetToken}" style="display: inline-block; padding: 10px 20px; background-color: #00642c; color: #fff; text-decoration: none; border-radius: 5px;">Redefinir Senha</a>
+                <p>Para redefinir sua senha, na página de recuperação, insira esse valor:</p>
+                <p>${resetToken} </p>
                 <p style="margin-top: 20px;">Se você não solicitou uma redefinição de senha, ignore este email.</p>
                 <p style="margin-top: 20px;">Atenciosamente,</p>
                 <p style="font-weight: bold;">Suco Maria Peregrina</p>

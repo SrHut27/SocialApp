@@ -100,7 +100,7 @@ const RecoveryPassCard = () => {
             <input
               className={styles.recuperacaoToken}
               type="text"
-              name="token"
+              name="resetToken"
               value={formData.resetToken}
               onChange={handleChange}
               placeholder="Código de verificação"
