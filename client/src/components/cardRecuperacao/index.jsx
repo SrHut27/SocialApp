@@ -44,7 +44,7 @@ const verifyToken = async (e) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email: formData.email, token: formData.resetToken }),
+                body: JSON.stringify({ resetToken: formData.resetToken }),
             })
             const data = await response.json()
             if(response.ok) {
@@ -67,7 +67,7 @@ const verifyToken = async (e) => {
         <div className={styles.content}>
             <div className={styles.caixa}>
             {errorMessage && <p style={{ color: 'red', textAlign: "center" }}>{errorMessage}</p>}
-                <form className={styles.caixaMaior} onSubmit={recoveryMail}>
+                <form className={styles.caixaMaior} onSubmit={showTokenInput ? verifyToken : recoveryMail}>
                     <h1>Enviaremos um código para o seu email</h1>
                     <hr />
                     <h2>Podemos enviar um código de login para:</h2>
