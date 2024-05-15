@@ -38,7 +38,7 @@ const addPosts = async (req, res) => {
   let fileExtension = null;
 
   if (!userID) {
-    res.status(402).json({
+    res.status(500).json({
       error: `Não há nenhum usuário logado no momento...`,
     });
     return;
@@ -109,13 +109,14 @@ const addPosts = async (req, res) => {
 
 // Rota para apagar publicação
 const deletePost = async (req, res) => {
+  const { userID } = req.body;
   const { postID } = req.params;
 
   try {
     const existingPost = await new Promise((resolve, reject) => {
       connection.execute(
-        "SELECT * FROM posts WHERE id = ?",
-        [postID],
+        "SELECT * FROM posts WHERE id = ? AND user_id = ?",
+        [postID, userID],
         (error, results) => {
           if (error) {
             reject(error);
