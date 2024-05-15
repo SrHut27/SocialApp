@@ -284,6 +284,7 @@ const resetPasswordPOST = async (req, res) => {
       res.status(403).json({
         error: `Se deseja recuperar sua senha, informe todos os dados necessários`,
       });
+      return;
     }
 
     if (password !== confirmPassword) {
