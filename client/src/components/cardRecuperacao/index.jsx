@@ -4,29 +4,31 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 
 const RecoveryPassCard = () => {
-    const [formData, setFormData] = useState ({
+    const [formData, setFormData] = useState({
         email: '',
-        resetToken:'',
+        resetToken: '',
     })
-    const [errorMessage, setErrorMessage] = useState ('')
+    const [errorMessage, setErrorMessage] = useState('')
+    const [resultadoMessage, setResultadoMessage] = useState('')
     const [showTokenInput, setShowTokenInput] = useState(false);
 
     const recoveryMail = async (e) => {
         e.preventDefault()
         console.log(formData)
-        
+
         try {
             const response = await fetch('http://localhost:3001/auth/forgot-password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({ email: formData.email }),
             })
             const data = await response.json()
             if (response.ok) {
-                setShowTokenInput(true);
-                setErrorMessage('');
+                setShowTokenInput(true)
+                setErrorMessage('')
+                setResultadoMessage(data.resultado)
             } else {
                 throw new Error(data.error)
             }
@@ -35,56 +37,65 @@ const RecoveryPassCard = () => {
             setErrorMessage(error.message)
         }
     }
-const verifyToken = async (e) => {
-    e.preventDefault()
+    const verifyToken = async (e) => {
+        e.preventDefault()
+        if (showTokenInput && !formData.resetToken) {
+            setErrorMessage('Por favor, insira o código de verificação.')
+            setResultadoMessage('')
+            return
+          }
 
-    try {
-        const response = await fetch('http://localhost:3001/auth/forgot-password', {
-                method: 'POST',
+        try {
+            const response = await fetch(`http://localhost:3001/auth/reset-password/${formData.resetToken}`, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ resetToken: formData.resetToken }),
+                }
             })
             const data = await response.json()
-            if(response.ok) {
-                window.location.href = '/recuperarSenha'
-                setErrorMessage('')
+            if (response.ok) {
+                localStorage.setItem('resetToken', data.token)
+                window.location.href = '/recuperarsenha'
             } else {
                 throw new Error(data.error)
             }
-    } catch(error) {
-        setErrorMessage(error)
+        } catch (error) {
+            setErrorMessage(error.message)
+            setResultadoMessage('')
+
+        }
     }
-}
 
 
     const handleChange = (e) => {
-        setFormData ({ ...formData, [e.target.name]: e.target.value })
+        setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
     return (
         <div className={styles.content}>
-            <div className={styles.caixa}>
+            {resultadoMessage && <p style={{ color: 'green', textAlign: "center" }}>{resultadoMessage}</p>}
             {errorMessage && <p style={{ color: 'red', textAlign: "center" }}>{errorMessage}</p>}
+            <div className={styles.caixa}>
+
                 <form className={styles.caixaMaior} onSubmit={showTokenInput ? verifyToken : recoveryMail}>
                     <h1>Enviaremos um código para o seu email</h1>
                     <hr />
                     <h2>Podemos enviar um código de login para:</h2>
-                    <input className={styles.recuperacaoemail} 
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange} 
-                    placeholder="Email" />
+                    <input
+                        className={styles.recuperacaoemail}
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="Email" />
                     {showTokenInput && (
                         <input
                             className={styles.recuperacaoToken}
                             type="text"
-                            name="token"
-                            value={formData.token}
+                            name="resetToken"
+                            value={formData.resetToken}
                             onChange={handleChange}
-                            placeholder="Token de validação"
+                            placeholder="Código de verificação"
                         />
                     )}
                     <div className={styles.buttons}>

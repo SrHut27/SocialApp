@@ -141,7 +141,7 @@ const loginControll = async (req, res) => {
 
     if (existingUser.length === 0) {
       res.status(401).json({
-        error: `Este email: ${email} não está vinculado a nenhuma conta. Cadastre-se no sistema.`,
+        error: `Email incorreto`,
       });
       return;
     } else {
@@ -151,7 +151,7 @@ const loginControll = async (req, res) => {
 
       if (!passwordMatch) {
         res.status(403).json({
-          error: `A senha informada está incorreta`,
+          error: `Senha incorreta`,
         });
         return;
       } else {
