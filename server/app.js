@@ -11,11 +11,13 @@ app.use(cors());
 // Importação de rotas:
 const authRoute = require("./routes/authRoute");
 const postRoute = require("./routes/postsRoute");
+const styleUserRoute = require("./routes/styleUserRoute");
 
 // Aplicação de rotas:
 app.use("/auth", authRoute);
 app.use("/app", postRoute);
+app.use("/app/update", styleUserRoute);
 
-const server = app.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server is running in http://localhost:${PORT}`);
 });

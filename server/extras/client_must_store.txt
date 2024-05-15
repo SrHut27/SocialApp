@@ -1,0 +1,3 @@
+// all this data is passed to aplication in auth/login when it is sucssefull:
+
+token, userID, userNAME, userEMAIL
