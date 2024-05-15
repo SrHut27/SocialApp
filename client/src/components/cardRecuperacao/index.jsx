@@ -44,7 +44,7 @@ const verifyToken = async (e) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email: formData.email, token: formData.resetToken }),
+                body: JSON.stringify({ resetToken: formData.resetToken }),
             })
             const data = await response.json()
             if(response.ok) {
