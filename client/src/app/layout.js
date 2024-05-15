@@ -5,7 +5,9 @@ export const metadata = {
   description: "Rede social",
 };
 
+
 export default function RootLayout({ children }) {
+
   return (
     <html lang="pt-br">
       <body>

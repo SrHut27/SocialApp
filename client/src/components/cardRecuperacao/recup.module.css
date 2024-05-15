@@ -1,0 +1,111 @@
+.content{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(240, 242, 245);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.caixa {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.caixaMaior {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    width: 100%;
+    box-shadow: rgb(0 0 0 / 10%) 0px 2px 4px, rgb(0 0 0 / 10%) 0px 8px 32px;
+}
+
+.caixaMaior h1 {
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 18px 16px 0px 18px;
+}
+.caixaMaior h2 {
+    font-size: 17px;
+    font-weight: normal;
+    margin-top: 10px;
+    padding: 0px 16px 18px 18px;
+}
+.caixaMaior hr {
+    width: 92%;
+    border: 1px solid rgb(212, 212, 212);
+}
+.caixaMaior input {
+    outline: none;
+    font-size: 16px;
+    color: #1d2129;
+    padding: 14px 16px;
+    width: 85%;
+    height: 1.4rem;
+    border-radius: 10px;
+    border: 1px solid #d4d6d9;
+    vertical-align: middle;
+    align-self: center;
+    transition: 0.3s;
+}
+.caixaMaior input:focus,
+.caixaMaior input:hover {
+    border-color: #0866ff;
+    box-shadow: 0 0 5px #0866ff;
+    outline: none; 
+}
+
+.recuperacaoToken {
+    margin-top: 10px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.buttonCancelar {
+    padding: 0.7rem 1.4rem;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: #e4e6eb;
+    color: #4b4f56;
+    margin: 12px 3px 12px 8px;
+}
+.buttonPesquisar {
+    padding: 0.7rem 1.4rem;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: #1877f2;
+    margin: 12px 20px 12px 3px;
+}
+
+
+
+.buttonCancelar:hover {
+    background-color: white;
+}
+.buttonPesquisar:hover {
+    background-color: white;
+    color: #4b4f56;
+}
+
+.inputs {
+    gap: 100px;
+}

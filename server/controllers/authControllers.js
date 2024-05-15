@@ -199,7 +199,7 @@ const forgotPasswordControll = async (req, res) => {
 
     if (existingEmail.length === 0) {
       res.status(403).json({
-        error: `O email: ${email} que você deseja recuperar a conta não está associado a nenhuma conta. Se desejar, registre-se no SocialApp`,
+        error: `O email ${email} não está cadastrado`,
       });
       return;
     } else {

@@ -32,8 +32,14 @@
     border-radius: 10px;
     border: 1px solid #d4d6d9;
     vertical-align: middle;
+    transition: 0.3s;
 }
-
+.inputsdiv input:focus,
+.inputsdiv input:hover {
+    border-color: #0866ff;
+    box-shadow: 0 0 5px #0866ff;
+    outline: none; 
+}
 .buttonEntrar {
     padding: 1rem;
     color: white;
@@ -47,6 +53,11 @@
     transition: 0.3s;
     text-decoration: none;
 }
+.buttonEntrar:hover {
+    
+    background-color: #0042ad;
+}
+
 .buttonCriar {
     padding: 1rem;
     color: white;
@@ -60,6 +71,9 @@
     text-decoration: none;
     background-color: #42b72a;
     width: auto;
+}
+.buttonCriar:hover {
+    background-color: #199400;
 }
 
 .linkSenha {

@@ -5,7 +5,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    box-shadow: rgb(0 0 0 / 10%) 0px 2px 4px, rgb(0 0 0 / 10%) 0px 8px 32px;
+    box-shadow: rgb(0 0 0 / 10%) 0px 2px 8px, rgb(0 0 0 / 10%) 0px 8px 32px;
 }
 
 .linkSocial {
@@ -30,13 +30,17 @@
     border-radius: 6px;
     border: 1px solid #d4d6d9;
     vertical-align: middle;
+    transition: 0.3s;
 }
-.inputmail:hover{
-    outline: solid rgb(0, 110, 255) 1px;
-} 
-.inputpass:hover {
-    outline: solid rgb(0, 110, 255) 1px;
+
+.cabecalho input:focus,
+.cabecalho input:hover {
+    border-color: #0866ff;
+    box-shadow: 0 0 5px #0866ff;
+    outline: none; 
 }
+
+
 
 .buttonEntrar {
     padding: 0.7rem 1.4rem;
@@ -58,4 +62,7 @@
     display: flex;
     gap: 5px;
     margin-right: 15px;
+}
+.hr {
+    border: none;
 }

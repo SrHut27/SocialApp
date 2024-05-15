@@ -71,6 +71,7 @@ const UpSessionLogin = () => {
                     </button>
                 </form>
             </div>
+            <hr className={styles.hr}/>
         </header>
     )
 }

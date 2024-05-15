@@ -11,14 +11,15 @@ export default function Home() {
     const token = localStorage.getItem('token')
     if (token) {
       window.location.href = '/dashboard'
+      return null
     }
   }, [])
 
   return (
     <main className={styles.main}>
       <div className={styles.facebookinfo}>
-        <h1>SocialMedia</h1>
-        <h2>A SocialMedia ajuda você a se conectar e compartilhar com as pessoas que fazem parte da sua vida.</h2>
+        <h1>SocialApp</h1>
+        <h2>A SocialApp ajuda você a se conectar e compartilhar com as pessoas que fazem parte da sua vida.</h2>
       </div>
       <div className={styles.cardDiv}>
       <Card />

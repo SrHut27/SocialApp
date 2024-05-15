@@ -72,15 +72,14 @@
     vertical-align: middle;
     transition: 0.3s;
 }
-.inputmailcadastro:hover {
-    outline: solid rgb(0, 110, 255) 1px;
+.criarConta input:focus,
+.criarConta input:hover,
+.criarConta input.filledInput {
+    border-color: #0866ff;
+    box-shadow: 0 0 5px #0866ff;
+    outline: none; 
 }
-.inputpasscadastro:hover {
-    outline: solid rgb(0, 110, 255) 1px;
-}
-.inputpasscadastro2:hover {
-    outline: solid rgb(0, 110, 255) 1px;
-}
+
 
 .buttonRegister {
     padding: 0.7rem 4rem;

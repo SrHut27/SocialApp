@@ -45,7 +45,7 @@ const Card = () => {
     return (
         <div>
             <div className={styles.facebookcaixa}>
-            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+            {errorMessage && <p style={{ color: 'red', textAlign: "center" }}>{errorMessage}</p>}
                 <form className={styles.inputsdiv} onSubmit={authenticateUser}>
                 
                     <input
