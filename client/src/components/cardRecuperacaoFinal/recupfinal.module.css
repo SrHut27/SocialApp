@@ -53,16 +53,13 @@
     vertical-align: middle;
     align-self: center;
     transition: 0.3s;
+    margin-bottom: 10px;
 }
 .caixaMaior input:focus,
 .caixaMaior input:hover {
     border-color: #0866ff;
     box-shadow: 0 0 5px #0866ff;
     outline: none; 
-}
-
-.recuperacaoToken {
-    margin-top: 10px;
 }
 
 .buttons {
@@ -105,4 +102,8 @@
 .buttonPesquisar:hover {
     background-color: white;
     color: #4b4f56;
+}
+
+.inputs {
+    gap: 100px;
 }
