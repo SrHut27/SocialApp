@@ -1,5 +1,6 @@
 const connection = require("../configs/database_connection");
-const fs = require("fs");
+const fs = require("fs").promises;
+const path = require("path");
 
 const changeUserName = async (req, res) => {
   const { userID, userNAME, newUsername } = req.body;
@@ -118,6 +119,20 @@ const updatePhoto = async (req, res) => {
       });
       return;
     } else {
+      const antiqueProfilePhotoPath = existingUser[0].profile_photo_path;
+      if (antiqueProfilePhotoPath) {
+        try {
+          const absolutePath = path.join(
+            __dirname,
+            "../../client/public",
+            antiqueProfilePhotoPath
+          );
+          await fs.unlink(absolutePath);
+        } catch (error) {
+          console.error("Erro ao excluir a foto de perfil antiga:", error);
+        }
+      }
+
       const addProfilePhoto = await new Promise((resolve, reject) => {
         connection.execute(
           "UPDATE users SET profile_photo_path = ? WHERE id = ?",

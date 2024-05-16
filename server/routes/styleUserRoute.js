@@ -18,8 +18,13 @@ router.post("/username", verifyToken, (req, res) => {
   changeUserName(req, res);
 });
 
-router.post("/profile_photo", upload_profile.single("file"), (req, res) => {
-  updatePhoto(req, res);
-});
+router.post(
+  "/profile_photo",
+  verifyToken,
+  upload_profile.single("file"),
+  (req, res) => {
+    updatePhoto(req, res);
+  }
+);
 
 module.exports = router;
