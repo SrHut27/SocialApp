@@ -19,3 +19,12 @@ CREATE TABLE posts (
     fileExtension VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+CREATE TABLE comments (
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    user_id INT UNSIGNED,
+    post_id INT UNSIGNED,
+    comment_content VARCHAR(255) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
+);
