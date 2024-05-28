@@ -1,4 +1,6 @@
 "use client"
+import UpSessionDashboard from "@/components/upSessionDashboard";
+import Post from "@/components/cardPost";
 
 const DashboardPage = () => {
   const token = localStorage.getItem('token')
@@ -11,10 +13,11 @@ const DashboardPage = () => {
     localStorage.removeItem('token')
     window.location.href = '/'
   }
-  return <div>
+  return <>
+    <UpSessionDashboard/>
     Dashboard
     <button onClick={Logout}>Sair</button>
-  </div>;
+  </>;
 };
 
 export default DashboardPage;

@@ -1,5 +1,4 @@
-JWT_SECRET=secret
-
-EMAIL_SERVICE=gmail
-EMAIL_USER=thebieelgt@gmail.com
-EMAIL_PASSWORD=tkzd mznf drlb gdox
+JWT_SECRET=
+EMAIL_SERVICE=
+EMAIL_USER=
+EMAIL_PASSWORD=
