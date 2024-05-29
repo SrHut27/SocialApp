@@ -18,8 +18,7 @@ O projeto **SocialAapp** foi inspirado em redes sociais como Facebook, Instagram
 
 #### Módulos usados no projeto (para a Aplicação) :
 
-#### Ideias no decorrer do projeto:
-  -> Fazer um Web Chat: mesmo que não seja com as mensagens salvas no banco de dados, perdendo-as sempre que um novo chat seja aberto, é uma ótima forma de entender o protocolo WebSocket. Apesar das mensagens não fiicarem salvas, queremos que sejam indentificadas (mostre seu autor) e sejam chats privados (uma sala com apenas dois usuários). Usaremos a biblioteca socket.io
+
 
   
 
