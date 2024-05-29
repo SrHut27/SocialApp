@@ -90,4 +90,140 @@ const addComment = async (req, res) => {
   }
 };
 
-module.exports = { addComment };
+const getComments = async (req, res) => {
+  const { userID } = req.body;
+
+  if (!userID) {
+    res.status(500).json({
+      error: `Nenhum usuário logado no momento`,
+    });
+    return;
+  }
+
+  try {
+    const existingUser = await new Promise((resolve, reject) => {
+      connection.execute(
+        "SELECT * FROM users WHERE id = ?",
+        [userID],
+        (error, results) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+          resolve(results);
+        }
+      );
+    });
+
+    if (existingUser.length === 0) {
+      res.status(500).json({
+        error: `Nenhum usuário logado no momento`,
+      });
+      return;
+    } else {
+      const getComments = await new Promise((resolve, reject) => {
+        connection.execute("SELECT * FROM comments", (error, results) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+          resolve(results);
+        });
+      });
+
+      if (getComments.length === 0) {
+        res.status(400).json({
+          resultado: `Nenhum comentário...`,
+        });
+        return;
+      } else {
+        res.status(200).json({
+          resultado: getComments,
+        });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: `No momento, não foi possível estabeler uma conexão com o banco de dados`,
+    });
+    return;
+  }
+};
+
+const delComments = async (req, res) => {
+  const { userID } = req.body;
+  const { commentID } = req.params;
+
+  if (!userID) {
+    res.status(500).json({
+      error: `Nenhum usuário logado no momento`,
+    });
+    return;
+  }
+
+  try {
+    const existingUser = await new Promise((resolve, reject) => {
+      connection.execute(
+        "SELECT * FROM users WHERE id = ?",
+        [userID],
+        (error, results) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+          resolve(results);
+        }
+      );
+    });
+
+    if (existingUser.length === 0) {
+      res.status(500).json({
+        error: `Nenhum usuário logado no momento`,
+      });
+      return;
+    } else {
+      const existingComments = await new Promise((resolve, reject) => {
+        connection.execute(
+          "SELECT * FROM comments WHERE id = ? AND user_id = ?",
+          [commentID, userID],
+          (error, results) => {
+            if (error) {
+              reject(error);
+              return;
+            }
+            resolve(results);
+          }
+        );
+      });
+
+      if (existingComments.length === 0) {
+        res.status(400).json({
+          error: `Não foi encontrado nenhum comentário com as informações fornecidas`,
+        });
+        return;
+      } else {
+        await connection.execute(
+          "DELETE FROM comments WHERE id = ? AND user_id = ?",
+          [commentID, userID],
+          (error, results) => {
+            if (error) {
+              return;
+            }
+          }
+        );
+        res.status(200).json({
+          resultado: `Comentário do ${existingUser[0].username} apagado com sucesso!`,
+        });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: `No momento, não foi possível estabeler uma conexão com o banco de dados`,
+    });
+    return;
+  }
+};
+
+module.exports = { addComment, getComments, delComments };
