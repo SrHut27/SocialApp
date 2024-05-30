@@ -1,11 +1,10 @@
 # SocialApp
 
-O projeto **SocialAapp** foi inspirado em redes sociais como Facebook, Instagram e Twitter. Ele serve como um caminho de aprendizado em programação web utilizando Node.js e o framework Next.js, junto com React. Ao longo do desenvolvimento dessa ideia, a equipe está disposta a realizar alterações, inovações e expansões no projeto, com o objetivo de acumular conhecimento e facilitar um trabalho em equipe estruturado, documentado e educativo para todas as partes envolvidas. Acompanhe esse projeto!
+O projeto **SocialAapp** foi inspirado em redes sociais como Facebook, Instagram e Twitter. Ele serve como um caminho de aprendizado em programação web utilizando Node.js e o framework React.js, junto com mySQL para banco de dados. Ao longo do desenvolvimento dessa ideia, a equipe está disposta a realizar alterações, inovações e expansões no projeto, com o objetivo de acumular conhecimento e facilitar um trabalho em equipe estruturado, documentado e educativo para todas as partes envolvidas. Acompanhe esse projeto!
 
 ## Tecnologias usadas no projeto:
 + NodeJS;
-+ NextJS;
-+ React;
++ ReactJS;
 
 #### Módulos usados no projeto (para a API) :
 + **Express**: O Express é um framework web para Node.js que facilita a criação de aplicativos web e APIs. Ele fornece uma variedade de recursos poderosos para lidar com rotas, solicitações e respostas HTTP de forma eficiente. Com o Express, você pode criar uma instância do servidor com apenas algumas linhas de código, definir rotas para manipular diferentes requisições HTTP e utilizar middlewares para adicionar funcionalidades extras, como autenticação, validação de dados e controle de acesso.
