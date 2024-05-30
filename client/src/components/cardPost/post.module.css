@@ -1,3 +1,126 @@
-.div {
+.post {
+    height: auto;
+    width: 600px;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.15);
+    border: 1px solid #ccc;
+}
+.postInformation {
+    display: grid;
+    grid-template-columns: 12% 88%;
+    gap: 10px;
+}
+.profileName {
+    margin: 0px;
+}
+.postText {
+    margin-top: 6px;
+    margin-bottom: 10px;
+}
+.profileImage {
+    display: flex;
+}
+.profileImage img,
+.commentProfileImage img {
+    height: 64px;
+    width: 64px;
+    border-radius: 50%;
+}
+.postGrid2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.postImage img {
+    display: flex;
+    justify-content: center;
+}
+.postImage img {
+    max-width: 460px;
+    max-height: 460px;
+    border-radius: 16px;
+}
+
+.commentsSection {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ccc;
+}
+
+.commentsTitle {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.comment {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.commentProfileImage {
+    margin-right: 10px;
+}
+
+.commentText {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 10px;
+    flex: 1;
+}
+
+.commentUserName {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+}
+
+.commentContent {
+    font-size: 0.9em;
+    margin: 0;
+}
+
+.commentDate {
+    font-size: 0.8em;
+    color: #888;
+    margin-top: 5px;
     display: block;
+}
+
+.newComment {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.newCommentInput {
+    resize: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    margin-bottom: 10px;
+}
+.newCommentInput:hover,
+.newCommentInput:focus {
+    border-color: #0866ff;
+    box-shadow: 0 0 5px #0866ff;
+    outline: none; 
+}
+
+.newCommentButton {
+    align-self: flex-end;
+    padding: 0.7rem 1.4rem;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.newCommentButton:hover {
+    background-color: white;
+    color: #4b4f56;
 }
