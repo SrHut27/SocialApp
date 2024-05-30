@@ -14,9 +14,10 @@ CREATE TABLE IF NOT EXISTS posts (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     user_id INT UNSIGNED,
     tittle VARCHAR(255) NOT NULL,
-    content text,
+    content TEXT,
     filePath VARCHAR(255) UNIQUE,
     fileExtension VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
@@ -25,6 +26,7 @@ CREATE TABLE IF NOT EXISTS comments (
     user_id INT UNSIGNED,
     post_id INT UNSIGNED,
     comment_content VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
 );

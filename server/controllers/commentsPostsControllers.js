@@ -1,5 +1,8 @@
 const connection = require("../configs/database_connection");
 
+// Função para formatar data e hora da consulta do banco de dados:
+const formatDateTime = require("../utils/date_format");
+
 connection.connect((error) => {
   if (error) throw error;
 });
@@ -137,8 +140,13 @@ const getComments = async (req, res) => {
         });
         return;
       } else {
+        const formattedComments = getComments.map(comment => ({
+          ...comment,
+          created_at: formatDateTime(comment.created_at)
+        }));
+
         res.status(200).json({
-          resultado: getComments,
+          resultado: formattedComments,
         });
       }
     }

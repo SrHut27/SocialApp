@@ -1,5 +1,8 @@
 const connection = require("../configs/database_connection");
 
+// Função para formatar data e hora da consulta do banco de dados:
+const formatDateTime = require("../utils/date_format");
+
 // Rota para mostrar as publicações
 const getPosts = async (req, res) => {
   try {
@@ -18,8 +21,13 @@ const getPosts = async (req, res) => {
       });
       return;
     } else {
+      const formattedPosts = getingPosts.map(posts => ({
+        ...posts,
+        created_at: formatDateTime(posts.created_at)
+      }));
+
       res.status(200).json({
-        resultado: getingPosts,
+        resultado: formattedPosts,
       });
     }
   } catch (error) {
