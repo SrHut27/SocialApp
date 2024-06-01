@@ -14,6 +14,9 @@ const DashboardPage = () => {
     <UpSessionDashboard/>
     <div className={styles.post}>
     <Post/>
+    <Post/>
+    <Post/>
+    <Post/>
     </div>
   </>;
 };
