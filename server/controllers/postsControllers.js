@@ -41,7 +41,7 @@ const getPosts = async (req, res) => {
 
 // Rota para adicionar publicação
 const addPosts = async (req, res) => {
-  const { userID, title, content } = req.body;
+  const { userID, content } = req.body;
   let filePath = null;
   let fileExtension = null;
 
@@ -52,9 +52,9 @@ const addPosts = async (req, res) => {
     return;
   }
 
-  if (!title) {
+  if (!content) {
     res.status(401).json({
-      error: `Se deseja cadastrar uma publicação, informe um título a ela`,
+      error: `Se deseja cadastrar uma publicação, informe o conteúdo dela`,
     });
     return;
   }
@@ -90,8 +90,8 @@ const addPosts = async (req, res) => {
     } else {
       const addPost = await new Promise((resolve, reject) => {
         connection.execute(
-          "INSERT INTO posts (user_id, title, content, filePath, fileExtension) VALUES (?,?,?,?,?)",
-          [userID, title, content || null, filePath, fileExtension],
+          "INSERT INTO posts (user_id, content, filePath, fileExtension) VALUES (?,?,?,?)",
+          [userID, content, filePath, fileExtension],
           (error, results) => {
             if (error) {
               reject(error);

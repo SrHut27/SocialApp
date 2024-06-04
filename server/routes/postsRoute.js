@@ -12,7 +12,7 @@ const {
   deletePost,
 } = require("../controllers/postsControllers");
 
-router.post("/add", verifyToken, upload.single("file"), (req, res) => {
+router.post("/add", upload.single("file"), (req, res) => {
   addPosts(req, res);
 });
 
