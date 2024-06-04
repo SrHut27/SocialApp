@@ -2,9 +2,8 @@
 import styles from "./post.module.css"
 import React, { useState, useEffect } from 'react'
 
-const Post = () => {
+const Post = ({username}) => {
     const [showPopup, setShowPopup] = useState(false)
-
     const togglePopup = () => {
         setShowPopup(!showPopup)
     }
@@ -34,7 +33,7 @@ const Post = () => {
                     <img src="profilePicTest.jpeg" alt="#" />
                 </div>
                 <div className={styles.postGrid2}>
-                    <h2 className={styles.profileName}>User</h2>
+                    <h2 className={styles.profileName}>{username}</h2>
                     <p className={styles.postText}>Testando layout apenas layout
                         Testando layout apenas layout Testando layout apenas layout
                         Testando layout apenas layout Testando layout apenas layout

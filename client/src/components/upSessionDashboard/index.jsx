@@ -8,6 +8,7 @@ const upSessionDashboard = () => {
     const menuRef = useRef(null)
     const Logout = () => {
         localStorage.removeItem('token')
+        localStorage.removeItem('username')
         window.location.href = '/'
       }
     const toggleSettings = () => {

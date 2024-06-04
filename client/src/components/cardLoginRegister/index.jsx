@@ -27,6 +27,8 @@ const Card = () => {
             const data = await response.json()
             if (response.ok) {
                 localStorage.setItem('token', data.token)
+                localStorage.setItem('userID', data.userWithoutPassword[0].id)
+                localStorage.setItem('username', data.userWithoutPassword[0].username)
                 window.location.href = '/dashboard'
             } else {
                 throw new Error(data.error)
