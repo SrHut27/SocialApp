@@ -25,7 +25,7 @@ const Post = ({username}) => {
         <div className={showPopup ? `${styles.post} ${styles.postExpanded}` : styles.post}>
             
             {showPopup && (<div className={styles.headerPost}> 
-                <h1>Publicação de User</h1>
+                <h1>Publicação de {username}</h1>
                 <button className={styles.closeButton} onClick={togglePopup}>X</button>
             </div>)}
             <div className={showPopup ? `${styles.postInformation} ${styles.postInformationExpanded}` : styles.postInformation}>
