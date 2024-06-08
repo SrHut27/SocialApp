@@ -88,10 +88,11 @@ const addPosts = async (req, res) => {
       });
       return;
     } else {
+      const username = existingUser[0].username;
       const addPost = await new Promise((resolve, reject) => {
         connection.execute(
-          "INSERT INTO posts (user_id, content, filePath, fileExtension) VALUES (?,?,?,?)",
-          [userID, content, filePath, fileExtension],
+          "INSERT INTO posts (user_id, username, content, filePath, fileExtension) VALUES (?,?,?,?,?)",
+          [userID, username, content, filePath, fileExtension],
           (error, results) => {
             if (error) {
               reject(error);

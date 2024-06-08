@@ -47,6 +47,7 @@ const addComment = async (req, res) => {
       });
       return;
     }
+    const username = existingUser[0].username;
     const existingPost = await new Promise((resolve, reject) => {
       connection.execute(
         "SELECT * FROM posts WHERE id = ?",
@@ -69,8 +70,8 @@ const addComment = async (req, res) => {
     } else {
       const addComment = await new Promise((resolve, reject) => {
         connection.execute(
-          "INSERT INTO comments (user_id, post_id, comment_content) VALUES (?,?,?)",
-          [userID, postID, content],
+          "INSERT INTO comments (user_id, username, post_id, comment_content) VALUES (?,?,?,?)",
+          [userID, username, postID, content],
           (error, results) => {
             if (error) {
               reject(error);

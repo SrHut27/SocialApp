@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "dotenv": "^16.4.5"
+  },
+  "name": "socialapp",
+  "description": "O projeto **SocialAapp** foi inspirado em redes sociais como Facebook, Instagram e Twitter. Ele serve como um caminho de aprendizado em programação web utilizando Node.js e o framework React.js, junto com mySQL para banco de dados. Ao longo do desenvolvimento dessa ideia, a equipe está disposta a realizar alterações, inovações e expansões no projeto, com o objetivo de acumular conhecimento e facilitar um trabalho em equipe estruturado, documentado e educativo para todas as partes envolvidas. Acompanhe esse projeto!",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  },
+  "scripts": {
+    "start": "concurrently \"nodemon server/app.js\" \"cd client && npm run dev\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
