@@ -94,7 +94,7 @@ const addComment = async (req, res) => {
 };
 
 const getComments = async (req, res) => {
-  const { userID } = req.body;
+  const userID = req.headers['UserID'];
 
   if (!userID) {
     res.status(500).json({

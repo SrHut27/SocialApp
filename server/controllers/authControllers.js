@@ -358,7 +358,9 @@ const resetPasswordPOST = async (req, res) => {
 
 // Controle de acesso de rotas:
 const verifyToken = (req, res, next) => {
-  const token = req.body.token;
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // Extrai o token do cabeçalho
+
   if (!token) {
     return res.status(401).json({ message: "Token não fornecido." });
   }
