@@ -4,3 +4,9 @@
     gap: 16px;
     align-items: center;
 }
+
+.postsList {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+}
